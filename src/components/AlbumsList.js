@@ -11,7 +11,8 @@ export default class AlbumsList extends Component {
         super(props);
         this.state = {
             albums: [],
-            pageNumber: 0
+            pageNumber: 0,
+            total: 0
         }
     }
 
@@ -36,20 +37,35 @@ export default class AlbumsList extends Component {
         })
     };
 
-    loadAlbums(artist) {
+    loadAlbums = (artist) => {
         Api.loadAlbums(artist.id, PAGE_SIZE, this.state.pageNumber)
-            .then(albums => {
+            .then(albumsForArtist => {
                 this.setState({
-                    albums
+                    albums: albumsForArtist.albums,
+                    total: albumsForArtist.total
                 })
             })
-    }
+    };
+
+    handleLoadMoreAlbums = () => {
+        this.setState({
+            pageNumber: this.state.pageNumber + 1
+        }, () => {
+            this.loadAlbums(this.props.artist)
+        })
+    };
 
     render() {
         return (
             <BoxContainer>
                 {
                     this.state.albums.map(album => <AlbumBox key={album.id} album={album}/>)
+                }
+                {
+                    this.state.total > PAGE_SIZE * (this.state.pageNumber + 1) && (
+                        <div className='load-more-albums'
+                             onClick={this.handleLoadMoreAlbums}>...</div>
+                    )
                 }
             </BoxContainer>
         )

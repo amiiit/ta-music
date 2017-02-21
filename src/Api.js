@@ -17,7 +17,10 @@ const Api = {
     loadAlbums: (artistId, pageSize, pageNumber) => {
         return fetch(`${ROOT_API}/artists/${artistId}/albums?limit=${pageSize}&offset=${pageNumber * pageSize}`)
             .then(response => response.json())
-            .then(json => json.items)
+            .then(json => ({
+                albums: new List(json.items),
+                total: json.total
+            }))
 
     }
 };
