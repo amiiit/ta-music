@@ -1,3 +1,4 @@
+import {List} from 'immutable';
 const ROOT_API = 'https://api.spotify.com/v1';
 
 const Api = {
@@ -10,6 +11,7 @@ const Api = {
                     })
                 }
             )
+            .then(artists => new List(artists))
     }
 };
 

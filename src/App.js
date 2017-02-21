@@ -37,7 +37,7 @@ class App extends Component {
 
     setNewArtistsSuggestions = (suggestions) => {
         this.setState({
-            artistsSuggestions: suggestions.splice(0, MAX_ARTISTS_DISPLAYED)
+            artistsSuggestions: suggestions.slice(0, MAX_ARTISTS_DISPLAYED)
         })
     };
 
