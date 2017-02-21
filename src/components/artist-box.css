@@ -1,0 +1,8 @@
+.artist-box {
+}
+
+.artist-box .select-artist {
+    align-self: flex-end;
+    margin-right: 4px;
+    cursor: pointer;
+}
