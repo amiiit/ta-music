@@ -13,6 +13,10 @@ class App extends Component {
         }
     }
 
+    componentDidMount(){
+        this.inputRef.focus()
+    }
+
     handleSearchInputChange = e => {
         this.setState({
             searchInputValue: e.target.value
@@ -43,10 +47,11 @@ class App extends Component {
                 <div className='artist-search'>
                     <input value={this.state.searchInputValue}
                            onChange={this.handleSearchInputChange}
+                           ref={ref => {this.inputRef = ref}}
                     />
-                    <button onClick={this.handleSearchClick}>search</button>
+                    <button onClick={this.handleSearchClick}>Go</button>
                 </div>
-                <div className='artists-suggestions'>
+                <div className='artists-suggestions box-container'>
                     {
                         this.state.artistsSuggestions.map(artist => (
                             <ArtistBox artist={artist}/>
