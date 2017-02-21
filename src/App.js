@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Api from './Api';
-import ArtistBox from './ArtistBox';
-
+import ArtistBox from './components/ArtistBox';
 
 const MAX_ARTISTS_DISPLAYED = 5;
 
@@ -62,7 +61,7 @@ class App extends Component {
                 <div className='artists-suggestions box-container'>
                     {
                         this.state.artistsSuggestions.map(artist => (
-                            <ArtistBox artist={artist}/>
+                            <ArtistBox key={artist.id} artist={artist}/>
                         ))
                     }
                 </div>

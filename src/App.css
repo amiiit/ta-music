@@ -24,20 +24,6 @@
     flex-wrap: wrap;
 }
 
-.box {
-    width: 200px;
-    height: 350px;
-    margin: 15px;
-    border: solid 2px lavender;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.box img {
-    width: 100%;
-}
-
 .artist-search input {
     margin-right: 24px;
 }
