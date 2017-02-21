@@ -3,6 +3,9 @@ import './App.css';
 import Api from './Api';
 import ArtistBox from './ArtistBox';
 
+
+const MAX_ARTISTS_DISPLAYED = 5;
+
 class App extends Component {
 
     constructor(props) {
@@ -13,7 +16,7 @@ class App extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.inputRef.focus()
     }
 
@@ -23,8 +26,9 @@ class App extends Component {
         })
     };
 
-    handleSearchClick = () => {
-        this.searchForArtist(this.state.searchInputValue)
+    handleSearchSubmit = (e) => {
+        e.preventDefault();
+        this.searchForArtist(this.state.searchInputValue);
     };
 
     searchForArtist = (query) => {
@@ -34,7 +38,7 @@ class App extends Component {
 
     setNewArtistsSuggestions = (suggestions) => {
         this.setState({
-            artistsSuggestions: suggestions
+            artistsSuggestions: suggestions.splice(0, MAX_ARTISTS_DISPLAYED)
         })
     };
 
@@ -45,11 +49,16 @@ class App extends Component {
                     <h2>TA Music</h2>
                 </div>
                 <div className='artist-search'>
-                    <input value={this.state.searchInputValue}
-                           onChange={this.handleSearchInputChange}
-                           ref={ref => {this.inputRef = ref}}
-                    />
-                    <button onClick={this.handleSearchClick}>Go</button>
+                    <form onSubmit={this.handleSearchSubmit}>
+                        <input value={this.state.searchInputValue}
+                               onChange={this.handleSearchInputChange}
+                               ref={ref => {
+                                   this.inputRef = ref
+                               }}
+                        />
+                        <button type='submit'>Go</button>
+                    </form>
+
                 </div>
                 <div className='artists-suggestions box-container'>
                     {
