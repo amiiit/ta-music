@@ -8,7 +8,9 @@ const AlbumBox = ({album}) => {
             {
                 album.images && album.images.length && <img role='presentation' src={album.images[0].url}/>
             }
-            <a href={album.external_urls.spotify} target="_blank">Spotify</a>
+            {
+                album.external_urls && album.external_urls.spotify && <a href={album.external_urls.spotify} target="_blank">Spotify</a>
+            }
         </Box>
     )
 };

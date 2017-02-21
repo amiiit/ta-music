@@ -2,6 +2,7 @@ import React, {Component, PropTypes as T} from 'react';
 import Api from '../Api'
 import BoxContainer from './BoxContainer'
 import AlbumBox from './AlbumBox'
+import {List} from 'immutable';
 
 const PAGE_SIZE = 5;
 
@@ -10,7 +11,7 @@ export default class AlbumsList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            albums: [],
+            albums: new List(),
             pageNumber: 0,
             total: 0
         }
@@ -24,7 +25,7 @@ export default class AlbumsList extends Component {
         if ((!this.props.artist && newProps.artist) || newProps.artist.id !== this.props.artist.id) {
             this.setState({
                 pageNumber: 0,
-                albums: []
+                albums: new List()
             }, () => {
                 this.loadAlbums(newProps.artist)
             });
@@ -41,7 +42,7 @@ export default class AlbumsList extends Component {
         Api.loadAlbums(artist.id, PAGE_SIZE, this.state.pageNumber)
             .then(albumsForArtist => {
                 this.setState({
-                    albums: albumsForArtist.albums,
+                    albums: this.state.albums.concat(albumsForArtist.albums),
                     total: albumsForArtist.total
                 })
             })
