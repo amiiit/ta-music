@@ -58,7 +58,6 @@ class App extends Component {
                         />
                         <button type='submit'>Go</button>
                     </form>
-
                 </div>
                 <div className='artists-suggestions box-container'>
                     {
