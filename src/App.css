@@ -18,12 +18,6 @@
     font-size: large;
 }
 
-.box-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
 .artist-search input {
     margin-right: 24px;
 }

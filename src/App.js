@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import Api from './Api';
 import ArtistBox from './components/ArtistBox';
+import AlbumsList from './components/AlbumsList'
+import BoxContainer from './components/BoxContainer';
 
 const MAX_ARTISTS_DISPLAYED = 5;
 
@@ -29,6 +31,12 @@ class App extends Component {
         e.preventDefault();
         this.searchForArtist(this.state.searchInputValue);
     };
+
+    handleArtistSelected(artist) {
+        this.setState({
+            selectedArtist: artist
+        })
+    }
 
     searchForArtist = (query) => {
         return Api.getArtistSuggestions(query)
@@ -59,11 +67,22 @@ class App extends Component {
                     </form>
                 </div>
                 <div className='artists-suggestions box-container'>
-                    {
-                        this.state.artistsSuggestions.map(artist => (
-                            <ArtistBox key={artist.id} artist={artist}/>
-                        ))
-                    }
+                    <BoxContainer>
+                        {
+                            this.state.artistsSuggestions.map(artist => (
+                                <ArtistBox key={artist.id}
+                                           artist={artist}
+                                           onSelect={() => {
+                                               this.handleArtistSelected(artist)
+                                           }}
+                                />
+                            ))
+                        }
+                    </BoxContainer>
+
+                </div>
+                <div className='selected-artist-section'>
+                    {this.state.selectedArtist && <AlbumsList artist={this.state.selectedArtist}/>}
                 </div>
             </div>
         );
